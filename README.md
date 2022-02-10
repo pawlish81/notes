@@ -1,4 +1,4 @@
-# Documentation for Notes-App )
+# Documentation for Notes-App
 
 
 ## Application
