@@ -8,6 +8,11 @@ spring:
 springdoc:
   api-docs:
     enabled: false
-
   swagger-ui:
     url: /notes-api.yaml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
