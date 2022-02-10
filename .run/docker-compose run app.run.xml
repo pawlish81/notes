@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="docker-compose run app" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="envFilePath" value="" />
+        <option name="services">
+          <list>
+            <option value="app" />
+          </list>
+        </option>
+        <option name="sourceFilePath" value="service/docker-compose.yml" />
+      </settings>
+    </deployment>
+    <method v="2">
+      <option name="Maven.BeforeRunTask" enabled="true" file="C:\Users\tesco\opt\source\notes\service/pom.xml" goal="clean install" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://superuser:secret@${MONGO_HOST}:27017
+      database: notes
+
+springdoc:
+  api-docs:
+    enabled: false
+
+  swagger-ui:
+    url: /notes-api.yaml

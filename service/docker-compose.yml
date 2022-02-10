@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    image: 'notes-ws'
+    container_name: 'notes-service-app'
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    depends_on:
+      - database
+    environment:
+      - MONGO_HOST=database
+    ports:
+      - '8080:8080'
+  database:
+    image: 'mongo'
+    container_name: 'notes-service-mongo-db'
+    environment:
+      - MONGO_INITDB_DATABASE=notes
+      - MONGO_INITDB_ROOT_USERNAME=superuser
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - '27017-27019:27017-27019'
