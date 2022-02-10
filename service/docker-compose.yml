@@ -12,6 +12,11 @@ services:
       - MONGO_HOST=database
     ports:
       - '8080:8080'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/swagger/notes?page=0&size=100" ]
+      interval: 30s
+      timeout: 20s
+      retries: 5
   database:
     image: 'mongo'
     container_name: 'notes-service-mongo-db'
