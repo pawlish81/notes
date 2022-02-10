@@ -1,28 +1,29 @@
 package com.pwldata.controllers;
 
 
-import com.pwl.api.v1.NotesApi;
-import com.pwl.api.v1.model.Note;
-import com.pwl.api.v1.model.NoteList;
-import com.pwl.api.v1.model.UpdatedNote;
-import com.pwldata.domain.NoteDoc;
-import com.pwldata.exceptions.NoteValidationException;
-import com.pwldata.repositories.NotesRepository;
-import com.pwldata.services.MapperService;
-import com.pwldata.services.NotesService;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
+import com.pwl.api.v1.NotesApi;
+import com.pwl.api.v1.model.Note;
+import com.pwl.api.v1.model.NoteList;
+import com.pwl.api.v1.model.UpdatedNote;
+import com.pwldata.common.NoteMapper;
+import com.pwldata.domain.NoteDoc;
+import com.pwldata.exceptions.NoteValidationException;
+import com.pwldata.repositories.NotesRepository;
+import com.pwldata.services.NotesService;
 
 @RestController()
 public class NotesController implements NotesApi {
@@ -39,13 +40,8 @@ public class NotesController implements NotesApi {
 
     @Override
     public ResponseEntity<NoteList> getNotes(Integer page, Integer size, String id, String title, String tag) {
-        Pageable paging = PageRequest.of(page, size);
 
-
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("id", exact())
-                .withMatcher("tag", exact())
-                .withMatcher("title", exact());
+        Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createDate"));
 
         NoteDoc noteDoc = new NoteDoc()
                 .setTitle(title)
@@ -55,18 +51,18 @@ public class NotesController implements NotesApi {
             noteDoc.setTag(Note.TagEnum.fromValue(tag));
         }
 
-        Example<NoteDoc> filter = Example.of(noteDoc, matcher);
-        Page<NoteDoc> result = notesRepository.findAll(filter, paging);
+        Page<NoteDoc> result = notesService.findAll(noteDoc, paging);
 
         NoteList noteList = new NoteList();
         noteList.setItemList(result.toList()
                 .stream()
-                .sorted(Comparator.comparing(NoteDoc::getCreateDate))
-                .map(MapperService::noteDocToNote)
+                .map(NoteMapper::noteDocToNote)
                 .collect(Collectors.toList()));
+
         noteList.setCurrentPage(result.getNumber());
         noteList.setTotalItems(result.getTotalElements());
         noteList.setTotalPage(result.getTotalPages());
+
         return ResponseEntity.ok(noteList);
 
     }
@@ -88,8 +84,10 @@ public class NotesController implements NotesApi {
                         .orElseThrow(() -> new NoteValidationException("text is empty")));
 
         noteDoc.setCreateDate(note.getCreateDate() != null ? note.getCreateDate().toLocalDateTime() : noteDoc.getCreateDate());
+
         noteDoc.setTag(note.getTag() == null ? null : Note.TagEnum.fromValue(note.getTag().getValue()));
-        return ResponseEntity.ok(MapperService.noteDocToNote(notesService.update(noteDoc)));
+
+        return ResponseEntity.ok(NoteMapper.noteDocToNote(notesService.update(noteDoc)));
     }
 
     @Override
@@ -109,7 +107,7 @@ public class NotesController implements NotesApi {
 
         NoteDoc note = notesService.createNote(noteDoc);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(MapperService.noteDocToNote(note));
+                .body(NoteMapper.noteDocToNote(note));
     }
 
     @Override

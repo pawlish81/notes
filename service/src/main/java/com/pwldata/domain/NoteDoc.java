@@ -1,12 +1,14 @@
 package com.pwldata.domain;
 
-import com.pwl.api.v1.model.Note;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import com.pwl.api.v1.model.Note;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Document(collection = "notes")
 @Data

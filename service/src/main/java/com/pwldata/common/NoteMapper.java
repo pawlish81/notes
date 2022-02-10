@@ -1,18 +1,23 @@
-package com.pwldata.services;
-
-import com.pwl.api.v1.model.Note;
-import com.pwl.api.v1.model.UpdatedNote;
-import com.pwldata.domain.NoteDoc;
-import org.apache.logging.log4j.util.Strings;
+package com.pwldata.common;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
-public class MapperService {
+import org.apache.logging.log4j.util.Strings;
 
-    private MapperService() {
+import com.pwl.api.v1.model.Note;
+import com.pwldata.domain.NoteDoc;
+
+public class NoteMapper {
+
+    private NoteMapper() {
     }
 
     public static Note noteDocToNote(NoteDoc noteDoc) {
@@ -33,20 +38,19 @@ public class MapperService {
                 list.add(st.nextToken().replaceAll("[^a-zA-Z0-9]", ""));
             }
         }
-
         return Collections.unmodifiableMap(list.stream().
                 collect(Collectors.toMap(String::trim, w -> 1, Integer::sum)));
     }
 
-    public static NoteDoc noteUpdateToNoteDoc(UpdatedNote updatedNote) {
-        NoteDoc noteDoc = new NoteDoc();
-        noteDoc.setText(updatedNote.getText());
-        noteDoc.setTitle(updatedNote.getTitle());
-        if (updatedNote.getTag() != null) {
-            noteDoc.setTag(Note.TagEnum.fromValue(updatedNote.getTag().getValue()));
-        }
-        noteDoc.setCreateDate(updatedNote.getCreateDate().toLocalDateTime());
-        return noteDoc;
-
-    }
+//    public static NoteDoc noteUpdateToNoteDoc(UpdatedNote updatedNote) {
+//        NoteDoc noteDoc = new NoteDoc();
+//        noteDoc.setText(updatedNote.getText());
+//        noteDoc.setTitle(updatedNote.getTitle());
+//        if (updatedNote.getTag() != null) {
+//            noteDoc.setTag(Note.TagEnum.fromValue(updatedNote.getTag().getValue()));
+//        }
+//        noteDoc.setCreateDate(updatedNote.getCreateDate().toLocalDateTime());
+//        return noteDoc;
+//
+//    }
 }

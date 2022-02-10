@@ -1,7 +1,8 @@
 package com.pwldata.repositories;
 
-import com.pwldata.domain.NoteDoc;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.pwldata.domain.NoteDoc;
 
 public interface NotesRepository extends MongoRepository<NoteDoc, String> {
 }

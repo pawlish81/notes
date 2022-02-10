@@ -1,7 +1,11 @@
 package com.pwldata.config;
 
-import com.pwldata.exceptions.NoteNotFoundException;
-import com.pwldata.exceptions.NoteValidationException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,10 +25,8 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
+import com.pwldata.exceptions.NoteNotFoundException;
+import com.pwldata.exceptions.NoteValidationException;
 
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
