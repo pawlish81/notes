@@ -22,18 +22,15 @@ import com.pwl.api.v1.model.UpdatedNote;
 import com.pwldata.common.NoteMapper;
 import com.pwldata.domain.NoteDoc;
 import com.pwldata.exceptions.NoteValidationException;
-import com.pwldata.repositories.NotesRepository;
 import com.pwldata.services.NotesService;
 
 @RestController()
 public class NotesController implements NotesApi {
 
-    private final NotesRepository notesRepository;
 
     private final NotesService notesService;
 
-    public NotesController(NotesRepository notesRepository, NotesService notesService) {
-        this.notesRepository = notesRepository;
+    public NotesController(NotesService notesService) {
         this.notesService = notesService;
     }
 

@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://localhost:27017
+      database: notes
+      embedded:
+        version:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+

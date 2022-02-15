@@ -2,7 +2,7 @@ spring:
   data:
     mongodb:
       authentication-database: admin
-      uri: mongodb://superuser:secret@${MONGO_HOST}:27017
+      uri: mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}:27017
       database: notes
 
 springdoc:
