@@ -154,11 +154,11 @@ paths:
 
 components:
   schemas:
-
-
-
     UpdatedNote:
       type: object
+      required:
+        - title
+        - text
       properties:
         id:
           type: string
@@ -175,7 +175,8 @@ components:
         createDate:
           type: string
           format: date-time
-          example: 'dd-mm-yyyy HH:mm:ss'
+          description: Creation date and time
+          example: "dd-MM-yyyy HH:mm:ss"
 
     NoteList:
       type: object

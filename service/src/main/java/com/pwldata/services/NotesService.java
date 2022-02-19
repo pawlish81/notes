@@ -35,7 +35,7 @@ public class NotesService {
 
     public NoteDoc findNotesById(String id) {
         Optional<NoteDoc> note = notesRepository.findById(id);
-        return note.orElseThrow(() -> new NoteNotFoundException("Note with id {0} not found"));
+        return note.orElseThrow(() -> new NoteNotFoundException("Note with id %s not found", id));
     }
 
     public NoteDoc update(NoteDoc noteDoc) {

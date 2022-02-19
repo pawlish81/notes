@@ -1,17 +1,22 @@
 package com.pwldata.domain;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.pwl.api.v1.model.Note;
+import com.pwldata.exceptions.NoteValidationException;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @Document(collection = "notes")
-@Data
 @NoArgsConstructor
 public class NoteDoc {
 
@@ -20,8 +25,10 @@ public class NoteDoc {
 
     private Note.TagEnum tag;
 
+    @NotEmpty
     private String title;
 
+    @NotEmpty
     private String text;
 
     private LocalDateTime createDate;
@@ -67,7 +74,18 @@ public class NoteDoc {
     }
 
     public NoteDoc setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String stringDate = formatter.format(createDate);
+        this.createDate = LocalDateTime.parse(stringDate, formatter);
+        return this;
+    }
+
+    public NoteDoc setTagFromString(String stringTag) {
+        try {
+            setTag(stringTag == null ? null : Note.TagEnum.fromValue(stringTag));
+        } catch (IllegalArgumentException e) {
+            throw new NoteValidationException("tag has incorrect value :" + tag + ", correct one is : " + Arrays.toString(Note.TagEnum.values()));
+        }
         return this;
     }
 }

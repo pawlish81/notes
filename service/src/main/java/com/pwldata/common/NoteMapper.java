@@ -1,7 +1,5 @@
 package com.pwldata.common;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +20,7 @@ public class NoteMapper {
 
     public static Note noteDocToNote(NoteDoc noteDoc) {
         return new Note()
-                .createDate(!Objects.isNull(noteDoc.getCreateDate()) ? OffsetDateTime.of(noteDoc.getCreateDate(), ZoneOffset.UTC) : null)
+                .createDate(!Objects.isNull(noteDoc.getCreateDate()) ? noteDoc.getCreateDate() : null)
                 .text(noteDoc.getText())
                 .title(noteDoc.getTitle())
                 .id(noteDoc.getId())
@@ -42,15 +40,4 @@ public class NoteMapper {
                 collect(Collectors.toMap(String::trim, w -> 1, Integer::sum)));
     }
 
-//    public static NoteDoc noteUpdateToNoteDoc(UpdatedNote updatedNote) {
-//        NoteDoc noteDoc = new NoteDoc();
-//        noteDoc.setText(updatedNote.getText());
-//        noteDoc.setTitle(updatedNote.getTitle());
-//        if (updatedNote.getTag() != null) {
-//            noteDoc.setTag(Note.TagEnum.fromValue(updatedNote.getTag().getValue()));
-//        }
-//        noteDoc.setCreateDate(updatedNote.getCreateDate().toLocalDateTime());
-//        return noteDoc;
-//
-//    }
 }

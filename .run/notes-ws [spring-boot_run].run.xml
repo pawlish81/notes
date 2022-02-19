@@ -8,6 +8,8 @@
           <option name="environmentProperties">
             <map>
               <entry key="MONGO_HOST" value="localhost" />
+              <entry key="MONGO_PASS" value="secret" />
+              <entry key="MONGO_USER" value="superuser" />
             </map>
           </option>
           <option name="jreName" value="#USE_PROJECT_JDK" />

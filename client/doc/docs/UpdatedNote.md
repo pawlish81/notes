@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  |  [optional]
 **tag** | [**TagEnum**](#TagEnum) |  |  [optional]
-**title** | **String** |  |  [optional]
-**text** | **String** |  |  [optional]
-**createDate** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**title** | **String** |  | 
+**text** | **String** |  | 
+**createDate** | [**LocalDateTime**](OffsetDateTime.md) | Creation date and time |  [optional]
 
 
 
