@@ -2,7 +2,6 @@ package com.pwldata.controllers;
 
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,11 +41,8 @@ public class NotesController implements NotesApi {
 
         NoteDoc noteDoc = new NoteDoc()
                 .setTitle(title)
-                .setId(id);
-
-        if (Strings.isNotEmpty(tag)) {
-            noteDoc.setTag(Note.TagEnum.fromValue(tag));
-        }
+                .setId(id)
+                .setTagFromString(tag);
 
         Page<NoteDoc> result = notesService.findAll(noteDoc, paging);
 
@@ -65,50 +61,47 @@ public class NotesController implements NotesApi {
     }
 
     @Override
-    public ResponseEntity<Note> updateNote(UpdatedNote note) {
-        NoteDoc noteDoc = notesService.findNotesById(note.getId());
+    public ResponseEntity<Note> updateNote(UpdatedNote updatedNote) {
+        NoteDoc noteDoc = notesService.findNotesById(updatedNote.getId());
+        noteDoc.setText(updatedNote.getText());
+        noteDoc.setTitle(noteDoc.getTitle());
+        noteDoc.setTag(noteDoc.getTag());
 
-        noteDoc.setTitle((note.getTitle() == null) ?
-                noteDoc.getTitle() :
-                Optional.
-                        of(note.getTitle()).filter(Strings::isNotEmpty)
-                        .orElseThrow(() -> new NoteValidationException("title is empty")));
+        noteDoc.setTitle(Optional.of(updatedNote.getTitle()).filter(Strings::isNotEmpty)
+                .orElseThrow(() -> new NoteValidationException("title is empty")));
 
-        noteDoc.setText((note.getText() == null) ?
-                noteDoc.getText() :
-                Optional.
-                        of(note.getText()).filter(Strings::isNotEmpty)
-                        .orElseThrow(() -> new NoteValidationException("text is empty")));
+        noteDoc.setText(Optional.
+                of(updatedNote.getText()).filter(Strings::isNotEmpty)
+                .orElseThrow(() -> new NoteValidationException("text is empty")));
 
-        noteDoc.setCreateDate(note.getCreateDate() != null ? note.getCreateDate().toLocalDateTime() : noteDoc.getCreateDate());
+        noteDoc.setCreateDate(updatedNote.getCreateDate() != null ? updatedNote.getCreateDate() : noteDoc.getCreateDate());
 
-        noteDoc.setTag(note.getTag() == null ? null : Note.TagEnum.fromValue(note.getTag().getValue()));
+        Note note = NoteMapper.noteDocToNote(notesService.update(noteDoc));
 
-        return ResponseEntity.ok(NoteMapper.noteDocToNote(notesService.update(noteDoc)));
+        return ResponseEntity.ok(note);
     }
 
     @Override
     public ResponseEntity<Note> addNote(String title, String text, String tag) {
         NoteDoc noteDoc = new NoteDoc();
+        noteDoc.setText(text);
+        noteDoc.setTitle(text);
+        noteDoc.setTagFromString(tag);
         noteDoc.setTitle(Optional.ofNullable(title).filter(Strings::isNotEmpty)
                 .orElseThrow(() -> new NoteValidationException("title is empty")));
 
         noteDoc.setText(Optional.ofNullable(text).filter(Strings::isNotEmpty)
                 .orElseThrow(() -> new NoteValidationException("text is empty")));
         noteDoc.setCreateDate(LocalDateTime.now());
-        try {
-            noteDoc.setTag(tag == null ? null : Note.TagEnum.fromValue(tag));
-        } catch (IllegalArgumentException e) {
-            throw new NoteValidationException("tag has incorrect value :" + tag + ", correct one is : " + Arrays.toString(Note.TagEnum.values()));
-        }
-
         NoteDoc note = notesService.createNote(noteDoc);
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(NoteMapper.noteDocToNote(note));
     }
 
     @Override
     public ResponseEntity<Void> deleteNote(String id) {
+        notesService.findNotesById(id);
         notesService.deleteNote(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

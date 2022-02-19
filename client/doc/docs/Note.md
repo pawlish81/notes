@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **tag** | [**TagEnum**](#TagEnum) |  |  [optional]
 **title** | **String** |  | 
 **text** | **String** |  | 
-**createDate** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**createDate** | [**LocalDateTime**](OffsetDateTime.md) | Creation date and time |  [optional]
 **stats** | **Map&lt;String, Integer&gt;** |  |  [optional]
 
 
