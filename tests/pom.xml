@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.pwl</groupId>
-        <artifactId>notes-parent</artifactId>
+        <artifactId>rockets-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>notes-test</artifactId>
+    <artifactId>rockets-test</artifactId>
     <packaging>jar</packaging>
     <dependencies>
 
         <dependency>
             <groupId>com.pwl</groupId>
-            <artifactId>notes-ws</artifactId>
+            <artifactId>rockets-ws</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>com.pwl</groupId>
-            <artifactId>notes-api-client</artifactId>
+            <artifactId>rockets-api-client</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

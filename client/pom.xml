@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.pwl</groupId>
-        <artifactId>notes-parent</artifactId>
+        <groupId>com.pwl.rocket-sim</groupId>
+        <artifactId>rockets-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>notes-api-client</artifactId>
+    <artifactId>rockets-api-client</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -32,9 +32,51 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.pwl</groupId>
-            <artifactId>notes-api</artifactId>
+            <groupId>com.pwl.rocket-sim</groupId>
+            <artifactId>rockets-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+            <version>4.9.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.15</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>2.13.2</version>
         </dependency>
 
     </dependencies>
@@ -43,7 +85,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>4.3.1</version>
+                <version>5.3.0</version>
                 <executions>
                     <execution>
                         <id>spring</id>
@@ -52,20 +94,22 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                ${project.basedir}/../api/src/main/resources/static/notes-api.yaml
+                                ${project.basedir}/../api/src/main/resources/static/rockets-api.yaml
                             </inputSpec>
                             <generatorName>java</generatorName>
+                            <generateModels>false</generateModels>
+                            <generateApis>false</generateApis>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>${project.artifactId}</artifactId>
                             <apiPackage>${api.package}</apiPackage>
-                            <modelPackage>${api.package}</modelPackage>
+                            <modelPackage>com.pwl.api.v1.model</modelPackage>
                             <artifactVersion>${project.version}</artifactVersion>
                             <generateApiTests>false</generateApiTests>
+                            <library></library>
                             <generateModelTests>false</generateModelTests>
-                            <serverVariableOverrides>http://localhost:8080</serverVariableOverrides>
                             <configOptions>
+                                <dateLibrary>java8-localdatetime</dateLibrary>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                                <sourceFolder>/src/gen/java/main</sourceFolder>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -99,5 +143,14 @@
         </plugins>
     </build>
 
-
+    <repositories>
+    <repository>
+        <id>oss-sonatype</id>
+        <name>oss-sonatype</name>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+    </repositories>
 </project>

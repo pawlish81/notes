@@ -3,15 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.pwl</groupId>
-        <artifactId>notes-parent</artifactId>
+        <groupId>com.pwl.rocket-sim</groupId>
+        <artifactId>rockets-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>notes-api</artifactId>
+    <artifactId>rockets-api</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
-
 
 
     <developers>
@@ -24,9 +23,9 @@
     </developers>
 
     <properties>
-    <unique.id>${maven.build.timestamp}</unique.id>
-    <api.version>v1</api.version>
-    <api.package>${project.groupId}.api.${api.version}</api.package>
+        <unique.id>${maven.build.timestamp}</unique.id>
+        <api.version>v1</api.version>
+        <api.package>${project.groupId}.api.${api.version}</api.package>
 
     </properties>
 
@@ -127,7 +126,7 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/static/notes-api.yaml
+                                ${project.basedir}/src/main/resources/static/rockets-api.yaml
                             </inputSpec>
                             <generatorName>spring</generatorName>
                             <groupId>${project.groupId}</groupId>
@@ -135,12 +134,12 @@
                             <apiPackage>${api.package}</apiPackage>
                             <modelPackage>${api.package}.model</modelPackage>
                             <artifactVersion>${project.version}</artifactVersion>
-                            <output>${project.basedir}/src/main/java</output>
                             <serverVariableOverrides>http://localhost:8080</serverVariableOverrides>
                             <configOptions>
                                 <documentationProvider>springfox</documentationProvider>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                                <sourceFolder>/src/gen/java/main</sourceFolder>
+                                <dateLibrary>java8</dateLibrary>
+                                <sourceFolder>/</sourceFolder>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>
                         </configuration>
@@ -152,7 +151,7 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/static/notes-api.yaml
+                                ${project.basedir}/src/main/resources/static/rockets-api.yaml
                             </inputSpec>
                             <generatorName>markdown</generatorName>
                             <configOptions>

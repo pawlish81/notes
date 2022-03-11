@@ -7,7 +7,7 @@
       </settings>
     </deployment>
     <method v="2">
-      <option name="Maven.BeforeRunTask" enabled="true" file="C:\Users\tesco\opt\source\notes\service/pom.xml" goal="clean install" />
+      <option name="Maven.BeforeRunTask" enabled="true" file="C:\Users\tesco\opt\source\rockets\service/pom.xml" goal="clean install" />
     </method>
   </configuration>
 </component>

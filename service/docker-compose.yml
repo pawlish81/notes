@@ -1,30 +1,28 @@
 version: '3'
 services:
-  app:
-    image: 'notes-ws'
-    container_name: 'notes-service-app'
+  rokcet-app:
+    image: 'rockets-ws'
+    container_name: 'rockets-service-app'
     build:
       dockerfile: Dockerfile
       context: ./
     depends_on:
-      - database
+      - rockets-database
     environment:
-      - MONGO_HOST=database
+      - MONGO_HOST=rockets-database
     ports:
       - '8080:8080'
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/swagger/notes?page=0&size=100" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
       interval: 30s
       timeout: 20s
       retries: 5
-  database:
-    image: 'mongo'
-    container_name: 'notes-service-mongo-db'
+  rockets-database:
+    image: 'mongo:5.0.6'
+    container_name: 'rockets-service-mongo-db'
     environment:
-      - MONGO_INITDB_DATABASE=notes
+      - MONGO_INITDB_DATABASE=rockets
       - MONGO_INITDB_ROOT_USERNAME=superuser
       - MONGO_INITDB_ROOT_PASSWORD=secret
-    volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     ports:
       - '27017-27019:27017-27019'

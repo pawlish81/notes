@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="notes-ws [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="rocket-ws [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -7,7 +7,10 @@
           <option name="delegateBuildToMaven" value="false" />
           <option name="environmentProperties">
             <map>
+              <entry key="MONGO_DB" value="rockets" />
               <entry key="MONGO_HOST" value="localhost" />
+              <entry key="MONGO_USER" value="superuser" />
+              <entry key="MONGO_USER_PASSSWORD" value="secret" />
             </map>
           </option>
           <option name="jreName" value="#USE_PROJECT_JDK" />

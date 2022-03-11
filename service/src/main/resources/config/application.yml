@@ -2,14 +2,26 @@ spring:
   data:
     mongodb:
       authentication-database: admin
-      uri: mongodb://superuser:secret@${MONGO_HOST}:27017
-      database: notes
+      uri: mongodb://${MONGO_USER}:${MONGO_USER_PASSSWORD}@${MONGO_HOST}:27017
+      database: ${MONGO_DB}
+      auto-index-creation: true
+      uuid-representation: STANDARD
+      persist-null-fields: true
+
+  security:
+    user:
+      name: rocketadmin
+      roles:
+        - ADMIN
+        - USER
+
+
 
 springdoc:
   api-docs:
     enabled: false
   swagger-ui:
-    url: /notes-api.yaml
+    url: /rockets-api.yaml
 
 management:
   endpoints:

@@ -1,25 +1,36 @@
-# Documentation for Notes
+# Documentation for Rockets
 
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8080*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*NotesApi* | [**addNote**](Apis/NotesApi.md#addnote) | **POST** /notes | Add a new note
-*NotesApi* | [**deleteNote**](Apis/NotesApi.md#deletenote) | **DELETE** /notes/{id} | Delete note
-*NotesApi* | [**getNotes**](Apis/NotesApi.md#getnotes) | **GET** /notes | Return notes with search criteria
-*NotesApi* | [**updateNote**](Apis/NotesApi.md#updatenote) | **PUT** /notes | Update an existing note
+*AdminApi* | [**getRocketByAuditableData**](Apis/AdminApi.md#getrocketbyauditabledata) | **GET** /audit | Return rocket with audit search criteria
+*RocketApi* | [**addRocket**](Apis/RocketApi.md#addrocket) | **POST** /rockets | Add a new rocket
+*RocketApi* | [**deleteRocket**](Apis/RocketApi.md#deleterocket) | **DELETE** /rockets/{id} | Delete rocket
+*RocketApi* | [**getRockets**](Apis/RocketApi.md#getrockets) | **GET** /rockets | Return rockets with search criteria
+*RocketApi* | [**getRocketsByID**](Apis/RocketApi.md#getrocketsbyid) | **GET** /rockets/{id} | Return rockets with search criteria
+*RocketApi* | [**updateRocket**](Apis/RocketApi.md#updaterocket) | **PUT** /rockets | Update an existing rocket
 
 
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [Note](./\Models/Note.md)
- - [NoteAllOf](./\Models/NoteAllOf.md)
- - [NoteList](./\Models/NoteList.md)
- - [UpdatedNote](./\Models/UpdatedNote.md)
+ - [ApiError](./\Models/ApiError.md)
+ - [AuditMetaData](./\Models/AuditMetaData.md)
+ - [BaseId](./\Models/BaseId.md)
+ - [BaseResponseWitAudit](./\Models/BaseResponseWitAudit.md)
+ - [BaseResponseWitAuditAllOf](./\Models/BaseResponseWitAuditAllOf.md)
+ - [GetRocketsFilter](./\Models/GetRocketsFilter.md)
+ - [NewRocket](./\Models/NewRocket.md)
+ - [Rocket](./\Models/Rocket.md)
+ - [RocketAllOf](./\Models/RocketAllOf.md)
+ - [RocketBody](./\Models/RocketBody.md)
+ - [RocketList](./\Models/RocketList.md)
+ - [RocketType](./\Models/RocketType.md)
+ - [UpdateRocket](./\Models/UpdateRocket.md)
 
 
 <a name="documentation-for-authorization"></a>

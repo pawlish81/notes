@@ -1,6 +1,6 @@
 # NotesApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8080*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Add a new note
 
-Creates a new note in the store. Duplicates are allowed
+Creates a new note in the store.
 
 ### Example
 ```java
@@ -30,7 +30,7 @@ import com.pwl.client.v1.NotesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost");
+    defaultClient.setBasePath("http://localhost:8080");
 
     NotesApi apiInstance = new NotesApi(defaultClient);
     String title = "title_example"; // String | Note title
@@ -75,8 +75,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Note created |  -  |
-**400** | Bad Request |  -  |
-**405** | Invalid input |  -  |
+**400** | Input error |  -  |
 
 <a name="deleteNote"></a>
 # **deleteNote**
@@ -98,7 +97,7 @@ import com.pwl.client.v1.NotesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost");
+    defaultClient.setBasePath("http://localhost:8080");
 
     NotesApi apiInstance = new NotesApi(defaultClient);
     String id = "id_example"; // String | ID of note to delete
@@ -132,13 +131,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Deleted |  -  |
-**400** | Invalid ID supplied |  -  |
+**204** | The resource was deleted successfully. |  -  |
+**400** | The specified resource was not found |  -  |
 
 <a name="getNotes"></a>
 # **getNotes**
@@ -160,7 +159,7 @@ import com.pwl.client.v1.NotesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost");
+    defaultClient.setBasePath("http://localhost:8080");
 
     NotesApi apiInstance = new NotesApi(defaultClient);
     Integer page = 0; // Integer | page
@@ -209,6 +208,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful operation |  -  |
+**401** | Unauthorized |  -  |
+**404** | The specified resource was not found |  -  |
 
 <a name="updateNote"></a>
 # **updateNote**
@@ -230,7 +231,7 @@ import com.pwl.client.v1.NotesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost");
+    defaultClient.setBasePath("http://localhost:8080");
 
     NotesApi apiInstance = new NotesApi(defaultClient);
     UpdatedNote updatedNote = new UpdatedNote(); // UpdatedNote | 
@@ -271,7 +272,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful operation |  -  |
-**400** | Invalid ID supplied |  -  |
-**404** | Note not found |  -  |
-**405** | Validation exception |  -  |
+**400** | Input error |  -  |
+**401** | Unauthorized |  -  |
 
