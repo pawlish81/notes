@@ -8,12 +8,17 @@ info:
     name: Piotr Pawliszcze
     email: p.pawliszcze@gmail.com
 
+servers : [ {
+  url : "http://localhost:8080",
+  description : "The local API server"
+} ]
+
 paths:
   /notes:
     post:
       tags:
         - Notes
-      description: Creates a new note in the store. Duplicates are allowed
+      description: Creates a new note in the store.
       operationId: addNote
       summary: Add a new note
       parameters:
@@ -30,8 +35,6 @@ paths:
           schema:
             type: string
             enum: [BUSINESS, PERSONAL,IMPORTANT]
-
-
         - name: text
           in: query
           description: Note text
@@ -49,10 +52,8 @@ paths:
                 $ref: '#/components/schemas/Note'
 
         '400':
-          description: Bad Request
+          $ref: '#/components/responses/InputError'
 
-        '405':
-          description: Invalid input
 
     put:
       tags:
@@ -75,11 +76,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/Note'
         '400':
-          description: Invalid ID supplied
-        '404':
-          description: Note not found
-        '405':
-          description: Validation exception
+          $ref: '#/components/responses/InputError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
     get:
       tags:
         - Notes
@@ -129,6 +129,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NoteList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
 
   /notes/{id}:
     delete:
@@ -153,10 +157,26 @@ paths:
 
 
 components:
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    InputError:
+      description: Input error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
   schemas:
-
-
-
     UpdatedNote:
       type: object
       properties:
@@ -194,8 +214,6 @@ components:
           type: integer
           format: int32
 
-
-
     Note:
       allOf:
         - $ref: '#/components/schemas/UpdatedNote'
@@ -209,7 +227,25 @@ components:
               properties:
                 default:
                   type: string
-              required:
-                - default
               additionalProperties:
                 type: integer
+
+
+    # Schema for error response body
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        path:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+        - code
+        - message

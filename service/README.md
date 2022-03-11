@@ -3,7 +3,7 @@
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8080*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -16,6 +16,7 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [ApiError](./\Models/ApiError.md)
  - [Note](./\Models/Note.md)
  - [NoteAllOf](./\Models/NoteAllOf.md)
  - [NoteList](./\Models/NoteList.md)
